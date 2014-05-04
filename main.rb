@@ -29,7 +29,7 @@ class Main
     hipchat_client = HipChat::Client.new(ENV['HIPCHAT_APIv2_TOKEN'], api_version: "v2")
     scheduler = Rufus::Scheduler.new
 
-    scheduler.cron '39 21 * * * America/Santiago' do
+    scheduler.cron '0 22 * * * America/Santiago' do
       board = Trello::Board.find(ENV['TRELLO_BOARD'])
       members_id_hash = Hash.new([])
 
@@ -52,13 +52,16 @@ class Main
         end
 
         message << "\n(gangnamstyle)"
+        
+        puts "Notificando a #{member.username}"
         hipchat_client.user(TRELLO_2_HIPCHAT[member.username]).send(message)
   
       end
     end
+    
+    scheduler.join
   end
 end
 
-if __FILE__ == $0
-  Main.run
-end
+
+Main.run
