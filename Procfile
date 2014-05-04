@@ -1,1 +1,1 @@
-worker: bundle exec ruby -Ilib bot.rb
+worker: bundle exec ruby main.rb
