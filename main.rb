@@ -25,7 +25,7 @@ end
 hipchat_client = HipChat::Client.new(ENV['HIPCHAT_APIv2_TOKEN'], api_version: "v2")
 scheduler = Rufus::Scheduler.new
 
-scheduler.cron '00 34 * * * America/Santiago' do
+scheduler.cron '35 21 * * * America/Santiago' do
   board = Trello::Board.find(ENV['TRELLO_BOARD'])
   members_id_hash = Hash.new([])
 
