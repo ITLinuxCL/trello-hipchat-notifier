@@ -7,7 +7,7 @@ require 'time'
 require 'pp'
 
 # The list we care about to query
-BOARD_LISTS = ["Hoy"]
+BOARD_LISTS = ["Hoy", "Esperando", "Esta semana"]
 TRELLO_2_HIPCHAT = {
   "pbruna" => "@pbruna",
   "andresgallardof" => "@agallardo",
@@ -29,18 +29,19 @@ class Main
     hipchat_client = HipChat::Client.new(ENV['HIPCHAT_APIv2_TOKEN'], api_version: "v2")
     scheduler = Rufus::Scheduler.new
 
-    scheduler.cron '15 9 * * * America/Santiago' do
+    scheduler.cron '26 22 * * * America/Santiago' do
       board = Trello::Board.find(ENV['TRELLO_BOARD'])
       members_id_hash = Hash.new([])
 
       lists = board.lists.keep_if {|list| BOARD_LISTS.include? list.name }
 
-      lists[0].cards.each do |card|
-        card.member_ids.each do |mid|
-          members_id_hash[mid] |= Array.new
-          members_id_hash[mid] << card.id
+      lists.each do |list|
+        list.cards.each do |card|
+          card.member_ids.each do |mid|
+            members_id_hash[mid] |= Array.new
+            members_id_hash[mid] << card.id
+          end
         end
-  
       end
 
       members_id_hash.each do |key,val|
