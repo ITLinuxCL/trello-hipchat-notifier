@@ -9,12 +9,12 @@ require 'pp'
 # The list we care about to query
 BOARD_LISTS = ["Doing", "Hoy", "Esperando", "Esta semana"]
 TRELLO_2_HIPCHAT = {
-  "pbruna" => "@pbruna",
-  "andresgallardof" => "@agallardo",
-  "danieleugenin" => "@deugenin",
-  "elizabetharriagada1" => "@earriagada",
-  "vvargasit" => "@vvargas",
-  "miguelein" => "@mcoa"
+  "pbruna" => "@pato",
+  "andresgallardof" => "@andres",
+  "danieleugenin" => "@daniel",
+  "elizabetharriagada1" => "@elizabeth",
+  "vvargasit" => "@nicolas",
+  "miguelein" => "@miguel"
 }
 
 Trello.configure do |config|
